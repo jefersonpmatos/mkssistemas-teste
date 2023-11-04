@@ -5,17 +5,6 @@ import { Card } from "./components/Card";
 import { Product } from "./components/Card/types";
 import * as S from "./styles";
 
-interface Product {
-  id: number;
-  name: string;
-  brand: string;
-  description: string;
-  photo: string;
-  price: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 interface ProductList {
   products: Product[];
   count: number;
