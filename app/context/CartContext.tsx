@@ -1,3 +1,5 @@
+"use client";
+
 import React, {
   createContext,
   useState,
@@ -13,6 +15,10 @@ export interface CartContextType {
   openCart: () => void;
   closeCart: () => void;
   isCartOpen: boolean;
+  productQuantities: { [key: string]: number };
+  setProductQuantities: React.Dispatch<
+    React.SetStateAction<{ [key: string]: number }>
+  >;
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -21,6 +27,8 @@ export const CartContext = createContext<CartContextType>({
   openCart: () => {},
   closeCart: () => {},
   isCartOpen: false,
+  productQuantities: {},
+  setProductQuantities: () => {},
 });
 
 interface CartProviderProps {
@@ -30,6 +38,9 @@ interface CartProviderProps {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [productQuantities, setProductQuantities] = useState<{
+    [productId: number]: number;
+  }>({});
 
   const openCart = () => {
     setIsCartOpen(true);
@@ -45,6 +56,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     isCartOpen,
     openCart,
     closeCart,
+    productQuantities,
+    setProductQuantities,
   };
 
   return (

@@ -1,14 +1,18 @@
+"use client";
 import { useCallback, useContext, useState } from "react";
 import { CartContext, CartContextType } from "../context/CartContext";
 import { Product } from "../components/Card/types";
 
 export const useCart = () => {
-  const { setProducts, products, isCartOpen, openCart, closeCart } =
-    useContext<CartContextType>(CartContext);
-
-  const [productQuantities, setProductQuantities] = useState<{
-    [productId: number]: number;
-  }>({});
+  const {
+    setProducts,
+    products,
+    isCartOpen,
+    openCart,
+    closeCart,
+    productQuantities,
+    setProductQuantities,
+  } = useContext<CartContextType>(CartContext);
 
   const addProduct = (product: Product) => {
     setProducts([...products, product]);
@@ -27,7 +31,7 @@ export const useCart = () => {
       });
       setProducts(products.filter((p) => p.id !== product.id));
     },
-    [products, setProducts]
+    [products, setProductQuantities, setProducts]
   );
 
   const increaseQuantity = useCallback((product: Product) => {
